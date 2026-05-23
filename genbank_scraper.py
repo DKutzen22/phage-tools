@@ -10,13 +10,12 @@ genbank_id = input("What is the Phages Genbank ID Number?")
 
 #retrieves genome data from NCBI GenBank
 def genome_scraping(accession_num):
-    
+
     #fetches the genbank data from the nucleotide database for the provided 'accession_num'
     with Entrez.efetch(db="nucleotide", 
                         id=accession_num, 
                         rettype="gb", 
                         retmode="text") as handle:
-
         #saves the data retrieved from genbank as a seqrecord
         record = SeqIO.read(handle, "genbank")
 
@@ -27,31 +26,24 @@ def genome_scraping(accession_num):
 def protein_scraping(accession_num):
 
     genome = genome_scraping(accession_num)
-
     proteins = {}
-    
     #counter to verify the amount of proteins in the finished dictionary is correct
     cds_count = 0
 
     for feature in genome.features:
-
         #checks that the feature is a protein coding sequence
         if feature.type != "CDS": continue
         cds_count += 1
-
         #labels the feature, its name, and sequence
         gp = feature.qualifiers.get("note", "blank")[0].split(";")[0]
         product = feature.qualifiers.get("product", "blank")[0]
         translation = feature.qualifiers.get("translation", "blank")[0]
-        
         #if the feature doesn't have a note, it labels with locus_tag instead
         if gp == "b":
             gp = feature.qualifiers.get("locus_tag")[0]
-
         #places the feature in the 'proteins' dictionary with its name and sequence 
         #organized by 'gp' to avoid duplication of keys
         proteins[gp] = {"Product":product, "Translation":translation}
-
         if cds_count != len(proteins):
             print("Error: Not all proteins were sorted correctly")
 
@@ -63,7 +55,6 @@ def protein_scraping(accession_num):
 def organism_scraping(accession_num):
 
     genome = genome_scraping(accession_num)
-
     Description_pattern = re.compile(r"supercalifragilisticexpialidocious")
 
     description = {
@@ -77,7 +68,6 @@ def organism_scraping(accession_num):
 
     for feature in genome.features:
         if feature.type == "source":
-    
             description["Organism"]["Product"] = feature.qualifiers.get("organism", "blank")[0]
             description["Host"]["Product"] = feature.qualifiers.get("lab_host", "blank")[0]
             description["Isolation Source"]["Product"] = feature.qualifiers.get("isolation_source", "blank")[0]
@@ -120,17 +110,13 @@ def protein_sorting(accession_num):
 
     #iterates through proteins for sorting
     for protein in proteins:
-
         #retrieves the protein product and translation data stored in 'proteins'
         product = proteins.get(protein).get("Product")
         translation = proteins.get(protein).get("Translation")
-
         matched = False
 
         for class_name, sub_dict in reversed(sorted_proteins.items()):
-            
             current_pattern = sub_dict["pattern"]
-            
             if bool(current_pattern.search(product)):
                 sorted_proteins[class_name][protein] = {"Product":product, "Translation":translation}
                 matched = True
@@ -149,14 +135,11 @@ def xlsx_writer(accession_num_x):
 
     #retrieves the organism data and proteins
     sorted_proteins = protein_sorting(accession_num_x)
-
     #creates an Excel workbook named using the organism name and ID
     workbook = xlsxwriter.Workbook(f"{accession_num_x} - {sorted_proteins.get("Description").get("Organism").get("Product")}.xlsx")
 
     for class_name, protein_class in sorted_proteins.items():
-
         if len(protein_class) > 1:
- 
             current_worksheet = workbook.add_worksheet(class_name)
             row = 0
             col = 0
