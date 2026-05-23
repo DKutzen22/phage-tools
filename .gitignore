@@ -1,1 +1,4 @@
 .vscode
+automate.py
+config.py
+__pycache__

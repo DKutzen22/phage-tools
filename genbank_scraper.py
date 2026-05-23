@@ -1,11 +1,11 @@
 from Bio import Entrez, SeqIO
 import xlsxwriter
 import re
+import config
 
 #sets variables for fetching data from NCBI GenBank
-Entrez.email = input("What is your NCBI email?")
-Entrez.tool = "genbank_phage_genome"
-genbank_id = input("What is the Phages Genbank ID Number?")
+Entrez.email = config.email
+Entrez.tool = config.tool
 
 #retrieves genome data from NCBI GenBank
 def genome_scraping(accession_num):
@@ -113,7 +113,6 @@ def protein_sorting(accession_num):
             if bool(current_pattern.search(product)):
                 sorted_proteins[class_name][protein] = {"Product":product, "Translation":translation}
                 matched = True
-                print(f"Matched: {protein} to {class_name}")
                 break
         #puts unmatched proteins into the 'Others' class
         if not matched:
@@ -148,5 +147,3 @@ def xlsx_writer(accession_num_x):
 
     workbook.close()
 
-#runs the last function, which references the others
-xlsx_writer(genbank_id)
