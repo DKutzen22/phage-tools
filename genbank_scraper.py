@@ -15,9 +15,9 @@ def genome_scraping(accession_num):
                         rettype="gb", 
                         retmode="text") as handle:
         #saves the data retrieved from genbank as a seqrecord
-        record = SeqIO.read(handle, "genbank")
+        seqrecord = SeqIO.read(handle, "genbank")
 
-    return record
+    return seqrecord
 
 #organizes the reference genome into a dictionary of proteins
 def protein_scraping(accession_num):
