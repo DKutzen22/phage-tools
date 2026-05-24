@@ -6,6 +6,7 @@ import config
 #sets variables for fetching data from NCBI GenBank
 Entrez.email = config.email
 Entrez.tool = config.tool
+Entrez.api_key = config.api_key
 
 #retrieves genome data from NCBI GenBank
 def genome_scraping(accession_num):
@@ -113,6 +114,7 @@ def protein_sorting(accession_num):
             if bool(current_pattern.search(product)):
                 sorted_proteins[class_name][protein] = {"Product":product, "Translation":translation}
                 matched = True
+                print(f"Matched: {accession_num}, {protein}, {product} to class:{class_name}")
                 break
         #puts unmatched proteins into the 'Others' class
         if not matched:
