@@ -2,3 +2,6 @@
 automate.py
 config.py
 __pycache__
+*.xlsx
+*.docx
+*.fasta
