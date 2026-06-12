@@ -93,7 +93,7 @@ def protein_sorting(accession_num):
     Toxin_pattern = re.compile(r"toxin|virulence")
     Integrase_pattern = re.compile(r"integrase")
     Adhesion_pattern = re.compile(r"immunoglobulin")
-    Others_pattern = re.compile(r"superinfection|assembly|prohead|connector|portal|morphogenesis|maturation|binding|chaperone|completion|tube|measure|decoration|outer|internal|inside|closure|scaffold")
+    Others_pattern = re.compile(r"superinfection|assembly|prohead|connector|portal|morphogenesis|maturation|binding|chaperone|completion|tube|measure|decor|outer|internal|inside|closure|scaffold|minor|vertex|struct|virion")
     Hypothetical_pattern = re.compile(r"\bhypothetical\sprotein\b")
     #nested dict with various classes of 
     #relevant proteins with included re.patterns
@@ -205,4 +205,4 @@ def genome_comparison_prep(phages):
             file.write(f">{name}\n")
             file.write(f"{str(nucleotides)}\n")
 
-
+    return name
