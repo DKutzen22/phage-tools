@@ -93,7 +93,7 @@ def protein_sorting(accession_num):
     Toxin_pattern = re.compile(r"toxin|virulence")
     Integrase_pattern = re.compile(r"integrase")
     Adhesion_pattern = re.compile(r"immunoglobulin")
-    Others_pattern = re.compile(r"superinfection|assembly|prohead|connector|portal|morphogenesis|maturation|binding|chaperone|completion|tube|measure")
+    Others_pattern = re.compile(r"superinfection|assembly|prohead|connector|portal|morphogenesis|maturation|binding|chaperone|completion|tube|measure|decoration|outer|internal|inside|closure|scaffold")
     Hypothetical_pattern = re.compile(r"\bhypothetical\sprotein\b")
     #nested dict with various classes of 
     #relevant proteins with included re.patterns
@@ -173,7 +173,7 @@ def docx_writer(accession_num_list, protein_class):
 
     for phage_id in phages:
         proteins = protein_sorting(phage_id)
-        phage_name = proteins.get("Description").get("Organism").get("Product").rsplit("_", 1)[1]
+        phage_name = proteins.get("Description").get("Organism").get("Product").rsplit("_", 1)[-1]
         target_proteins[phage_name] = {}
         for gp, protein_data in proteins.get(protein_class).items():
             if gp != "pattern":
