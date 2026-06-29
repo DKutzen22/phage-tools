@@ -1,9 +1,7 @@
 from Bio import Entrez, SeqIO
-import local.config as config
 
 Entrez.email = "daltonkkutzen@gmail.com"
 Entrez.tool = "genbank_scraper"
-Entrez.api_key = config.api_key
 
 #retrieves genome data from NCBI GenBank
 def genome_scraping(accession_num):
