@@ -32,7 +32,7 @@ def genbank_classification(accession_num):
         name = " ".join(seqrecord.features[0].qualifiers.get("organism", "blank")),
         accession = accession_num,
         taxonomy = ", ".join(seqrecord.annotations.get("taxonomy", None)),
-        host = " ".join((seqrecord.features[0].qualifiers.get("host", None))),
+        host = seqrecord.features[0].qualifiers.get("host", None),
         genome_size = len(sequence),
         proteins = proteins
     )

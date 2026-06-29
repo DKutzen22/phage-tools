@@ -2,7 +2,7 @@ from Bio import Entrez, SeqIO
 from docx import Document
 import xlsxwriter
 import re
-import local.config
+import phage_tools.local.config
 
 #sets variables for fetching data from NCBI GenBank
 Entrez.email = config.email
