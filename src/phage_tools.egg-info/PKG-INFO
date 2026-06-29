@@ -1,0 +1,14 @@
+Metadata-Version: 2.4
+Name: phage-tools
+Version: 0.1.0
+Summary: Helpers for phage genomics analysis
+Author-email: Dalton Kutzen <daltonkkutzen@gmail.com>
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: Bio
+Dynamic: license-file
+
+this will be udpated soon...
