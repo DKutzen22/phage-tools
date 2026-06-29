@@ -2,7 +2,7 @@ from Bio import Entrez, SeqIO
 from docx import Document
 import xlsxwriter
 import re
-import config
+import local.config
 
 #sets variables for fetching data from NCBI GenBank
 Entrez.email = config.email
@@ -206,3 +206,10 @@ def genome_comparison_prep(phages):
             file.write(f"{str(nucleotides)}\n")
 
     return name
+
+def protein_regex(accession_num, phagelist, filename):
+
+    proteins = protein_scraping_cds(accession_num)
+    organism_data = organism_scraping(accession_num)
+
+
