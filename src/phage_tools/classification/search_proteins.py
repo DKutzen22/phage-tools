@@ -10,5 +10,5 @@ def search_proteins(accession_num, keyword_list):
         if any(keyword.lower() in (protein.product or "").lower() for keyword in keyword_list):
             matching_proteins[protein_id] = protein
     
-    return matching_proteins
+    return phage, matching_proteins
 
